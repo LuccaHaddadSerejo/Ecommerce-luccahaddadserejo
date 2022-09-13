@@ -56,7 +56,7 @@ const data = [
     img: "../img/moletom.svg",
     nameItem: "Champion Packable Jacket",
     description:
-      "Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...",
+      "Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de...",
     value: 100,
     addCart: "Adicionar ao carrinho",
     tag: ["Camisetas"],
