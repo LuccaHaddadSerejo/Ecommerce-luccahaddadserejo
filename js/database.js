@@ -36,7 +36,7 @@ const data = [
     img: "../img/camiseta_preta.svg",
     nameItem: "T-Shirt",
     description:
-      "Esta t-shirt é imprescindível no seu guarda-roupa, combinando o caimento intemporal de...",
+      "Esta t-shirt é imprescindível no seu guarda-roupa, combinando o caimento intemporal de poliést...",
     value: 100,
     addCart: "Adicionar ao carrinho",
     tag: ["Camisetas"],
@@ -56,7 +56,7 @@ const data = [
     img: "../img/moletom.svg",
     nameItem: "Champion Packable Jacket",
     description:
-      "Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de...",
+      "Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...",
     value: 100,
     addCart: "Adicionar ao carrinho",
     tag: ["Camisetas"],

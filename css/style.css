@@ -8,7 +8,8 @@
 }
 
 .menu_border{
-    border-bottom: 1px whitesmoke solid;
+    border-bottom: 1px white solid;
+     box-shadow: 0 4px 6px -6px #222;
 }
 
 .menu_full{
@@ -22,17 +23,15 @@
 
 .menu_logo{
     font-size: 45px;
-}
-
-.menu_nav{
-
+    color: rgb(65, 60, 60);
 }
 
 .menu_button{
     width: 80px;
     padding: 10px;
-    color: black;
+    color: rgb(65, 60, 60);
     background-color: white;
+    transition: ease-out 0.5s;
 }
 
 .menu_button:hover{
@@ -88,21 +87,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: whitesmoke;
+    transition: 0.3s;
 }
 
 .list_items:hover{
     border: 5px #2E245E solid;
-    transition: 0.5s;
-}
-
-.list_items:focus{
-    border: 5px #2E245E solid;
-    transition: 0.5s;
-}
-
-
-.list_items_img{
+    transition: 0.3s;
 }
 
 .list_items_div{
@@ -119,33 +110,40 @@
     background-color: #2E245E;
     color: white;
     padding: 3px;
-    margin-left: 7px;
+    margin-left: 15px;
 }
 
 .list_items_h3{
-    padding: 0 7px;
+    padding: 0 15px;
+    color: rgb(65, 60, 60);
 }
 
 .list_items_description{
-    text-align: justify;
-    padding: 0 7px;
+    text-align: left;
+    padding: 0 15px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgb(65, 60, 60);
 }
 
 .list_items_price{
-    padding: 0 7px;
-    font-weight: bold;
+    padding: 0 15px;
+    font-weight: 600;
+    color: rgb(65, 60, 60);
 }
 
 .list_items_button{
-    margin-left: 7px;
+    margin-left: 15px;
     align-self: flex-start;
-    background-color:#2E245E;
-    color: white;
-    width: 100px;
+    background-color: white;
+    color: rgb(65, 60, 60);
+    width: 150px;
     height: 40px;
-    width: 130px;
     text-align: left;
     border-radius: 4px;
+    text-decoration: underline;
+    transition: ease-out 0.5s;
 }
 
 .list_items_button:hover{
@@ -198,6 +196,7 @@
     margin-left: 0;   
     background-color: #37268C;
     color: white;
+    transition: ease-out 0.1s;
 }
 
 .section_aside_div_pesquisa_button:active {
@@ -206,12 +205,12 @@
   }
 
   .section_aside_div_pesquisa_button:focus{
-    border: 1px black solid;
+    border: 1px rgb(65, 60, 60) solid;
     transition: 0.1;
   }
 
   .section_aside_div_pesquisa_button:hover{
-    border: 1px black solid;
+    border: 1px rgb(65, 60, 60) solid;
     transition: 0.1;
   }
 
@@ -225,45 +224,92 @@
 
 .section_aside_div_carrinhoCompras_title{
     background-color: #37268C;
-    color: white;
+    color: whitesmoke;
     padding: 13px;
     font-size: medium;
     width: 100%;
     text-align: center;
+    font-weight: 500;
 }
 
 
 .section_aside_div_carrinhoCompras_ul{
     list-style: none;
-    height: 200px;
+    max-height: 500px;
+    height: 100%;
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
     background-color: whitesmoke;
+    overflow-y: auto;
 }
 
-.section_aside_div_carrinhoCompras_li{
+.carrinhoCompras_li_full{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+}
+
+.list_items_img_carrinho{
+    width: 50%;
+}
+
+.list_items_div_carrinho{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    gap: 10px;
+    color: rgb(65, 60, 60);
+    font-weight: 500;
 }
 
-.section_aside_div_carrinhoCompras_title_2{
-    font-size: 30px;
+.list_items_price_carrinho{
+    font-weight: bold;
+    color: rgb(65, 60, 60);
 }
 
-.section_aside_div_carrinhoCompras_paragraph{
-    font-size: 15px;
-    font-weight: 300;
+.list_items_button_carrinho{
+    background-color: whitesmoke;
+    color: rgb(65, 60, 60);
+    width: 50px;
+    height: 40px;
+    text-decoration: underline;
+    margin-bottom: 5px;
+    color: rgb(65, 60, 60);
+    transition: ease-out 0.5s;
 }
+
+.list_items_button_carrinho:hover{
+    background-color: #2E245E;
+    color: white;
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    transition: ease-out 0.5s;
+    border-radius: 4px;
+}
+
+.list_items_button_carrinho:focus{
+    background-color: #2E245E;
+    color: white;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    transition: ease-out 0.5s;
+}
+
+.list_items_button_carrinho:active {
+    background-color: #37268C;
+    transform: translateY(7px);
+  }
 
 .section_aside_div_carrinhoCompras_div{
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background-color: rgb(65, 60, 60);
     color: white;
     width: 100%;
 }
@@ -273,14 +319,8 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 15px;
-}
-
-.section_aside_div_carrinhoCompras_div_quantidade_paragraph{
-
-}
-
-.section_aside_div_carrinhoCompras_div_quantidade_number{
-
+    color: white;
+    font-weight: 400;
 }
 
 .section_aside_div_carrinhoCompras_div_total{
@@ -288,13 +328,11 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 15px;
+    color: white;
+    font-weight: 400;
 }
 
-.section_aside_div_carrinhoCompras_div_total_paragraph{
-
-}
-
-.section_aside_div_carrinhoCompras_div_total_number{
-
+.sem_estoque_message{
+    list-style: none;
 }
 

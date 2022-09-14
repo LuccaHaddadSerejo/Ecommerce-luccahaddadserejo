@@ -1,4 +1,5 @@
 const listaDeItens = document.querySelector('.list_cards')
+const listaDeItensCarrinho = document.querySelector('.section_aside_div_carrinhoCompras_ul')
 const menuNav = document.querySelector('.menu_nav')
 const botaoTodos = document.querySelector('#button_menu_1')
 const botaoAcessorios = document.querySelector('#button_menu_2')
@@ -6,6 +7,8 @@ const botaoCalcados = document.querySelector('#button_menu_3')
 const botaoCamisetas = document.querySelector('#button_menu_4')
 const inputPesquisa = document.querySelector('#input_research')
 const botaoPesquisa = document.querySelector('#button_research')
+
+
 
 function renderizarProdutoListaPrincipal(lista, referenciaHtml){
     for(let i = 0; i < lista.length; i++){
@@ -25,6 +28,8 @@ function renderizarProdutoListaPrincipal(lista, referenciaHtml){
         listPrice.innerHTML = `R$${lista[i].value},00`
         listButton.innerHTML = `${lista[i].addCart}`
 
+        listButton.setAttribute('id', `botao_${i + 1}`)
+
         listItem.classList.add('list_items')
         listDiv.classList.add('list_items_div')
         listImg.classList.add('list_items_img')
@@ -37,10 +42,71 @@ function renderizarProdutoListaPrincipal(lista, referenciaHtml){
         listDiv.append(listTag, listName, listDescription, listPrice, listButton)
         listItem.append(listImg, listDiv)
         referenciaHtml.appendChild(listItem)
+
+        listButton.addEventListener('click', function AdicionarCarrinho(){
+            let quantidadeItens = document.querySelector("#quantidadeDinamica")
+            quantidadeItens.innerHTML ++  
+            let precoTotal = document.querySelector("#precoDinamico")      
+            if(precoTotal.innerHTML == 0){
+                precoTotal.innerHTML = `R$ ${+precoTotal.innerHTML + lista[i].value},00`
+            }
+            else{
+              let varTeste = precoTotal.innerHTML.replace('R$ ', '').replace(',00', '')
+              precoTotal.innerHTML = `R$ ${+varTeste + lista[i].value},00`
+            }
+    
+
+            let idElemento = listButton.id
+            let id = parseInt(idElemento.substring(6))
+
+            if(lista[i].id === id){
+                renderizarProdutoCarrinho(lista[i], listaDeItensCarrinho)
+            }  
+        })
     }
 }
 
 renderizarProdutoListaPrincipal(data, listaDeItens)
+
+
+
+function renderizarProdutoCarrinho(objeto, referenciaHtml){
+        let listItem = document.createElement('li')
+        let listImg = document.createElement('img')
+        let listDiv = document.createElement('div')
+        let listName = document.createElement('h3') 
+        let listPrice = document.createElement('span')
+        let listButton = document.createElement('button')
+
+        listImg.src = `${objeto.img}`
+        listName.innerHTML = `${objeto.nameItem}`
+        listPrice.innerHTML = `R$ ${objeto.value},00`
+        listButton.innerHTML = 'Remover'
+
+        listItem.classList.add('carrinhoCompras_li_full')
+        listDiv.classList.add('list_items_div_carrinho')
+        listImg.classList.add('list_items_img_carrinho')
+        listPrice.classList.add('list_items_price_carrinho')
+        listButton.classList.add('list_items_button_carrinho')
+
+        listDiv.append( listName, listPrice, listButton)
+        listItem.append(listImg, listDiv)
+        referenciaHtml.appendChild(listItem)
+
+        listButton.addEventListener('click', function removerItemCarrinho(event){   
+            event.path[2].remove()
+            let quantidadeItensCarrinho = document.querySelector("#quantidadeDinamica")
+            quantidadeItensCarrinho.innerHTML--  
+            let precoTotal = document.querySelector("#precoDinamico")      
+            if(precoTotal.innerHTML == 0){
+                precoTotal.innerHTML = `R$ ${+precoTotal.innerHTML + lista[i].value},00`
+            }
+            else{
+              let varTeste = precoTotal.innerHTML.replace('R$ ', '').replace(',00', '')
+              precoTotal.innerHTML = `R$ ${+varTeste - objeto.value},00`
+            }
+        })     
+}
 
 
 botaoTodos.addEventListener('click', function filtrarTodos(){ 
@@ -59,7 +125,14 @@ botaoAcessorios.addEventListener('click', function filtrarAcessorios(){
         }
     }
     if(arrFiltro.length == 0){
-        alert('Não encontramos nenhum item em nosso estoque')
+        let LiSemEstoque = document.createElement('li')
+        let H1SemEstoque = document.createElement('h1')
+
+        LiSemEstoque.classList.add('sem_estoque_message')
+
+        H1SemEstoque.innerHTML = 'Não encontramos nenhum item em nosso estoque!'
+        LiSemEstoque.appendChild(H1SemEstoque)
+        listaDeItens.appendChild(LiSemEstoque)
     }
     else{
         renderizarProdutoListaPrincipal(arrFiltro, listaDeItens)
@@ -76,7 +149,14 @@ botaoCalcados.addEventListener('click', function filtrarCalcados(){
         }
     }
     if(arrFiltro.length == 0){
-        alert('Não encontramos nenhum item em nosso estoque')
+        let LiSemEstoque = document.createElement('li')
+        let H1SemEstoque = document.createElement('h1')
+
+        LiSemEstoque.classList.add('sem_estoque_message')
+
+        H1SemEstoque.innerHTML = 'Não encontramos nenhum item em nosso estoque!'
+        LiSemEstoque.appendChild(H1SemEstoque)
+        listaDeItens.appendChild(LiSemEstoque)
     }
     else{
         renderizarProdutoListaPrincipal(arrFiltro, listaDeItens)
@@ -93,7 +173,14 @@ botaoCamisetas.addEventListener('click', function filtrarCamisetas(){
         }
     }
     if(arrFiltro.length == 0){
-        alert('Não encontramos nenhum item em nosso estoque')
+        let LiSemEstoque = document.createElement('li')
+        let H1SemEstoque = document.createElement('h1')
+
+        LiSemEstoque.classList.add('sem_estoque_message')
+
+        H1SemEstoque.innerHTML = 'Não encontramos nenhum item em nosso estoque!'
+        LiSemEstoque.appendChild(H1SemEstoque)
+        listaDeItens.appendChild(LiSemEstoque)
     }
     else{
         renderizarProdutoListaPrincipal(arrFiltro, listaDeItens)
@@ -101,26 +188,25 @@ botaoCamisetas.addEventListener('click', function filtrarCamisetas(){
 })
 
 botaoPesquisa.addEventListener('click', function pesquisarItens(){
-
     listaDeItens.innerHTML = ''
     let arrFiltro = []
     for(let i = 0; i < data.length; i++){
-        if(data[i].tag[0].toLowerCase() == inputPesquisa.value.toLowerCase() || data[i].nameItem.toLowerCase() == inputPesquisa.value.toLowerCase()){
+        if(data[i].tag[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") == inputPesquisa.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") || data[i].nameItem.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") == inputPesquisa.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "")){
             arrFiltro.push(data[i])
         }
     }
     if(arrFiltro.length == 0){
-        alert('Não encontramos nenhum item em nosso estoque')
+        let LiSemEstoque = document.createElement('li')
+        let H1SemEstoque = document.createElement('h1')
+
+        LiSemEstoque.classList.add('sem_estoque_message')
+
+        H1SemEstoque.innerHTML = 'Não encontramos nenhum item em nosso estoque!'
+        LiSemEstoque.appendChild(H1SemEstoque)
+        listaDeItens.appendChild(LiSemEstoque)
     }
     else{
         renderizarProdutoListaPrincipal(arrFiltro, listaDeItens)
     }
+    inputPesquisa.value = ''
 })
-
-
-
-
-
-
-
-
