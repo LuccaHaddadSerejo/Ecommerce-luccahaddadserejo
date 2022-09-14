@@ -212,7 +212,7 @@ botaoPesquisa.addEventListener('click', function pesquisarItens(){
         LiSemEstoque.classList.add('sem_estoque_message')
 
         H1SemEstoque.innerHTML = 'Não encontramos nenhum item em nosso estoque!'
-        LiSemEstoque.appendChild(H1SemEstoque)
+        LiSemEstoque.appendChild(H1SemEstoque, icone)
         listaDeItens.appendChild(LiSemEstoque)
     }
     else{
