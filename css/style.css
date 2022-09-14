@@ -135,14 +135,13 @@
 
 .list_items_button{
     margin-left: 15px;
-    align-self: flex-start;
     background-color: white;
     color: rgb(65, 60, 60);
     width: 150px;
     height: 40px;
-    text-align: left;
     border-radius: 4px;
     text-decoration: underline;
+    text-align: left;
     transition: ease-out 0.5s;
 }
 
@@ -232,6 +231,25 @@
     font-weight: 500;
 }
 
+.carrinho_empty{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.carrinho_empty_title{
+    font-size: 30px;
+    color:rgb(65, 60, 60);
+}
+
+.carrinho_empty_paragraph{
+    font-size: 15px;
+    color:rgb(65, 60, 60);
+}
 
 .section_aside_div_carrinhoCompras_ul{
     list-style: none;
@@ -246,12 +264,12 @@
     overflow-y: auto;
 }
 
+
 .carrinhoCompras_li_full{
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 100%;
-    gap: 30px;
 }
 
 .list_items_img_carrinho{
@@ -335,4 +353,5 @@
 .sem_estoque_message{
     list-style: none;
 }
+
 

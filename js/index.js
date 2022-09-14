@@ -7,7 +7,7 @@ const botaoCalcados = document.querySelector('#button_menu_3')
 const botaoCamisetas = document.querySelector('#button_menu_4')
 const inputPesquisa = document.querySelector('#input_research')
 const botaoPesquisa = document.querySelector('#button_research')
-
+const carrinhoVazio =  document.querySelector('.carrinho_empty')
 
 
 function renderizarProdutoListaPrincipal(lista, referenciaHtml){
@@ -44,24 +44,31 @@ function renderizarProdutoListaPrincipal(lista, referenciaHtml){
         referenciaHtml.appendChild(listItem)
 
         listButton.addEventListener('click', function AdicionarCarrinho(){
+            carrinhoVazio.innerHTML = ''
+            let novoArr = []
             let quantidadeItens = document.querySelector("#quantidadeDinamica")
-            quantidadeItens.innerHTML ++  
-            let precoTotal = document.querySelector("#precoDinamico")      
+                quantidadeItens.innerHTML ++  
+
+            let precoTotal = document.querySelector("#precoDinamico")  
             if(precoTotal.innerHTML == 0){
                 precoTotal.innerHTML = `R$ ${+precoTotal.innerHTML + lista[i].value},00`
             }
             else{
-              let varTeste = precoTotal.innerHTML.replace('R$ ', '').replace(',00', '')
-              precoTotal.innerHTML = `R$ ${+varTeste + lista[i].value},00`
+                let varTeste = precoTotal.innerHTML.replace('R$ ', '').replace(',00', '')
+                precoTotal.innerHTML = `R$ ${+varTeste + lista[i].value},00`
             }
     
 
             let idElemento = listButton.id
             let id = parseInt(idElemento.substring(6))
 
+            
             if(lista[i].id === id){
-                renderizarProdutoCarrinho(lista[i], listaDeItensCarrinho)
-            }  
+                novoArr.push(lista[i])
+            }
+       
+            
+            renderizarProdutoCarrinho(novoArr, listaDeItensCarrinho)
         })
     }
 }
@@ -70,42 +77,45 @@ renderizarProdutoListaPrincipal(data, listaDeItens)
 
 
 
-function renderizarProdutoCarrinho(objeto, referenciaHtml){
-        let listItem = document.createElement('li')
-        let listImg = document.createElement('img')
-        let listDiv = document.createElement('div')
-        let listName = document.createElement('h3') 
-        let listPrice = document.createElement('span')
-        let listButton = document.createElement('button')
+function renderizarProdutoCarrinho(lista, referenciaHtml){
 
-        listImg.src = `${objeto.img}`
-        listName.innerHTML = `${objeto.nameItem}`
-        listPrice.innerHTML = `R$ ${objeto.value},00`
-        listButton.innerHTML = 'Remover'
+        for(let i = 0; i < lista.length; i++){
+            let listItem = document.createElement('li')
+            let listImg = document.createElement('img')
+            let listDiv = document.createElement('div')
+            let listName = document.createElement('h3') 
+            let listPrice = document.createElement('span')
+            let listButton = document.createElement('button')
 
-        listItem.classList.add('carrinhoCompras_li_full')
-        listDiv.classList.add('list_items_div_carrinho')
-        listImg.classList.add('list_items_img_carrinho')
-        listPrice.classList.add('list_items_price_carrinho')
-        listButton.classList.add('list_items_button_carrinho')
+            listImg.src = `${lista[i].img}`
+            listName.innerHTML = `${lista[i].nameItem}`
+            listPrice.innerHTML = `R$ ${lista[i].value},00`
+            listButton.innerHTML = 'Remover'
 
-        listDiv.append( listName, listPrice, listButton)
-        listItem.append(listImg, listDiv)
-        referenciaHtml.appendChild(listItem)
+            listItem.classList.add('carrinhoCompras_li_full')
+            listDiv.classList.add('list_items_div_carrinho')
+            listImg.classList.add('list_items_img_carrinho')
+            listPrice.classList.add('list_items_price_carrinho')
+            listButton.classList.add('list_items_button_carrinho')
 
-        listButton.addEventListener('click', function removerItemCarrinho(event){   
-            event.path[2].remove()
-            let quantidadeItensCarrinho = document.querySelector("#quantidadeDinamica")
-            quantidadeItensCarrinho.innerHTML--  
-            let precoTotal = document.querySelector("#precoDinamico")      
-            if(precoTotal.innerHTML == 0){
-                precoTotal.innerHTML = `R$ ${+precoTotal.innerHTML + lista[i].value},00`
-            }
-            else{
-              let varTeste = precoTotal.innerHTML.replace('R$ ', '').replace(',00', '')
-              precoTotal.innerHTML = `R$ ${+varTeste - objeto.value},00`
-            }
-        })     
+            listDiv.append(listName, listPrice, listButton)
+            listItem.append(listImg, listDiv)
+            referenciaHtml.appendChild(listItem)
+
+            listButton.addEventListener('click', function removerItemCarrinho(event){   
+                event.path[2].remove()
+                let quantidadeItensCarrinho = document.querySelector("#quantidadeDinamica")
+                quantidadeItensCarrinho.innerHTML--  
+                let precoTotal = document.querySelector("#precoDinamico")      
+                if(precoTotal.innerHTML == 0){
+                    precoTotal.innerHTML = `R$ ${+precoTotal.innerHTML - lista[i].value},00`
+                }
+                else{
+                let varTeste = precoTotal.innerHTML.replace('R$ ', '').replace(',00', '')
+                precoTotal.innerHTML = `R$ ${+varTeste - lista[i].value},00`
+                }
+            })
+        }     
 }
 
 
