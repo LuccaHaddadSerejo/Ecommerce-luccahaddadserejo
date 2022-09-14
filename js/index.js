@@ -45,7 +45,9 @@ function renderizarProdutoListaPrincipal(lista, referenciaHtml){
 
         listButton.addEventListener('click', function AdicionarCarrinho(){
             carrinhoVazio.innerHTML = ''
+
             let novoArr = []
+
             let quantidadeItens = document.querySelector("#quantidadeDinamica")
                 quantidadeItens.innerHTML ++  
 
@@ -97,23 +99,20 @@ function renderizarProdutoCarrinho(lista, referenciaHtml){
             listImg.classList.add('list_items_img_carrinho')
             listPrice.classList.add('list_items_price_carrinho')
             listButton.classList.add('list_items_button_carrinho')
-
+            
             listDiv.append(listName, listPrice, listButton)
             listItem.append(listImg, listDiv)
             referenciaHtml.appendChild(listItem)
+           
+            listButton.addEventListener('click', function removerItemCarrinho(event){  
 
-            listButton.addEventListener('click', function removerItemCarrinho(event){   
                 event.path[2].remove()
+
                 let quantidadeItensCarrinho = document.querySelector("#quantidadeDinamica")
+                let precoTotal = document.querySelector("#precoDinamico")  
+
                 quantidadeItensCarrinho.innerHTML--  
-                let precoTotal = document.querySelector("#precoDinamico")      
-                if(precoTotal.innerHTML == 0){
-                    precoTotal.innerHTML = `R$ ${+precoTotal.innerHTML - lista[i].value},00`
-                }
-                else{
-                let varTeste = precoTotal.innerHTML.replace('R$ ', '').replace(',00', '')
-                precoTotal.innerHTML = `R$ ${+varTeste - lista[i].value},00`
-                }
+                precoTotal.innerHTML = `R$ ${+precoTotal.innerHTML.replace('R$ ', '').replace(',00', '') - lista[i].value},00`
             })
         }     
 }
@@ -200,11 +199,13 @@ botaoCamisetas.addEventListener('click', function filtrarCamisetas(){
 botaoPesquisa.addEventListener('click', function pesquisarItens(){
     listaDeItens.innerHTML = ''
     let arrFiltro = []
+
     for(let i = 0; i < data.length; i++){
-        if(data[i].tag[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") == inputPesquisa.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") || data[i].nameItem.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") == inputPesquisa.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "")){
+        if(data[i].nameItem.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(inputPesquisa.value.toLowerCase()) || data[i].tag[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(inputPesquisa.value.toLowerCase())){
             arrFiltro.push(data[i])
         }
     }
+
     if(arrFiltro.length == 0){
         let LiSemEstoque = document.createElement('li')
         let H1SemEstoque = document.createElement('h1')
@@ -212,11 +213,12 @@ botaoPesquisa.addEventListener('click', function pesquisarItens(){
         LiSemEstoque.classList.add('sem_estoque_message')
 
         H1SemEstoque.innerHTML = 'Não encontramos nenhum item em nosso estoque!'
-        LiSemEstoque.appendChild(H1SemEstoque, icone)
+        LiSemEstoque.appendChild(H1SemEstoque)
         listaDeItens.appendChild(LiSemEstoque)
     }
     else{
         renderizarProdutoListaPrincipal(arrFiltro, listaDeItens)
     }
+
     inputPesquisa.value = ''
 })
