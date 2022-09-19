@@ -10,10 +10,11 @@ const botaoPesquisa = document.querySelector('#button_research')
 
 
 const arrCarrinho = []
-var divCarrinho_1_span = document.createElement('span')
-var divCarrinho_2_span = document.createElement('span')
+let divCarrinho_1_span = document.createElement('span')
+let divCarrinho_2_span = document.createElement('span')
 divCarrinho_1_span.innerHTML = 0
 divCarrinho_2_span.innerHTML = 0
+
 
 function renderizarCarrinho(lista){
     if(lista.length == 0){
@@ -41,7 +42,7 @@ function renderizarCarrinho(lista){
         
         
         divCarrinho_1_p.innerHTML = 'Quantidade:'
-        divCarrinho_2_p.innerHTML = 'Total'
+        divCarrinho_2_p.innerHTML = 'Total:'
     
         divCarrinho_1.classList.add('section_aside_div_carrinhoCompras_div_quantidade')
         divCarrinho_1_p.classList.add('section_aside_div_carrinhoCompras_div_quantidade_paragraph')
@@ -97,30 +98,26 @@ function renderizarProdutoListaPrincipal(lista, referenciaHtml){
         listButton.addEventListener('click', function AdicionarCarrinho(){
             listaDeItensCarrinho.innerHTML = ''
             divCarrinho_1_span.innerHTML ++  
-
-
-                if(divCarrinho_2_span.innerHTML == 0){
-                    divCarrinho_2_span.innerHTML = `R$ ${+divCarrinho_2_span.innerHTML + lista[i].value},00`
-                }
-                else{
-                    divCarrinho_2_span.innerHTML = `R$ ${+divCarrinho_2_span.innerHTML.replace('R$ ', '').replace(',00', '') + lista[i].value},00`
-                }
-    
-
-            let id = parseInt(listButton.id.substring(6))    
             
+            if(divCarrinho_2_span.innerHTML == 0){
+                divCarrinho_2_span.innerHTML = `R$ ${+divCarrinho_2_span.innerHTML + lista[i].value},00`
+            }
+            else{
+                divCarrinho_2_span.innerHTML = `R$ ${+divCarrinho_2_span.innerHTML.replace('R$ ', '').replace(',00', '') + lista[i].value},00`
+                }
+           
+                
+            let id = parseInt(listButton.id.substring(6))   
+
             if(lista[i].id === id){
-                arrCarrinho.push(lista[i])   
-                  
-            }   
-            renderizarCarrinho(arrCarrinho)          
+                arrCarrinho.push(lista[i])  
+            }               
+            renderizarCarrinho(arrCarrinho)                  
         })
     }
 }
 
 renderizarProdutoListaPrincipal(data, listaDeItens)
-
-
 
 function renderizarProdutoCarrinho(lista){
 
@@ -131,13 +128,12 @@ function renderizarProdutoCarrinho(lista){
             let listName = document.createElement('h3') 
             let listPrice = document.createElement('span')
             let listButton = document.createElement('button')
-           
 
             listImg.src = `${lista[i].img}`
             listName.innerHTML = `${lista[i].nameItem}`
             listPrice.innerHTML = `R$ ${lista[i].value},00`
             listButton.innerHTML = 'Remover'
-           
+        
 
             listItem.classList.add('carrinhoCompras_li_full')
             listDiv.classList.add('list_items_div_carrinho')
@@ -148,18 +144,17 @@ function renderizarProdutoCarrinho(lista){
             listDiv.append(listName, listPrice, listButton)
             listItem.append(listImg, listDiv)
             listaDeItensCarrinho.appendChild(listItem)
-           
-            listButton.addEventListener('click', function removerItemCarrinho(event){  
+            
+            listButton.addEventListener('click', function removerItemCarrinho(){ 
                 listaDeItensCarrinho.innerHTML = ''
-                event.path[2].remove()
-    
+
                 divCarrinho_1_span.innerHTML --  
                 
-                divCarrinho_2_span.innerHTML = `R$ ${+divCarrinho_2_span.innerHTML.replace('R$ ', '').replace(',00', '') - lista[i].value},00`
-             
+                divCarrinho_2_span.innerHTML = `R$ ${+divCarrinho_2_span.innerHTML.replace('R$ ', '').replace(',00', '') - lista[i].value},00`  
 
-                arrCarrinho.pop()
-                renderizarCarrinho(arrCarrinho)
+                arrCarrinho.splice(i, 1)
+
+                renderizarCarrinho(arrCarrinho) 
             })
         }   
 }
